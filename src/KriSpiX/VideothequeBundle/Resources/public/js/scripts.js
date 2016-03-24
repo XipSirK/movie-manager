@@ -82,7 +82,9 @@ $(document).ready(function() {
                 $('#krispix_videothequebundle_movie_movieDate_month').val(parseInt(splitDate[1]));
                 $('#krispix_videothequebundle_movie_movieDate_year').val(parseInt(splitDate[0]));
                 // Format
-                $('#krispix_videothequebundle_movie_format option:contains('+ movie.format +')').attr('selected','selected');
+                $('#krispix_videothequebundle_movie_format').find('*').filter(function() {
+                    return $(this).text() === movie.format;
+                }).attr('selected','selected');
                 // Keywords
                 var $keywords = $('div#krispix_videothequebundle_movie_keywords');
                 $.each(movie.keywords, function(index, value) {
@@ -91,7 +93,9 @@ $(document).ready(function() {
                 });
                 // Genres
                 $.each(movie.genres, function(index, value) {
-                  $('#krispix_videothequebundle_movie_genres option:contains('+ value +')').attr('selected','selected');
+                  $('#krispix_videothequebundle_movie_genres').find('*').filter(function() {
+                    return $(this).text() === value;
+                  }).attr('selected','selected');
                 });
               }
           });

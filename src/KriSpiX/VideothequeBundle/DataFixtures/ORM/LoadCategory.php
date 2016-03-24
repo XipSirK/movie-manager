@@ -14,12 +14,91 @@ class LoadCategory implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $names = array(
-            'Comédie',
-            'Animation',
-            'Horreur',
-            'Drame',
-            'Action',
-            'Aventure'
+            "Action",
+            "Espionnage",
+            "Comédie",
+            "Aventure",
+            "Pour enfants",
+            "Animation",
+            "Thriller",
+            "Policier",
+            "Catastrophe",
+            "Science Fiction",
+            "Western",
+            "Comédie dramatique",
+            "Biopic / Biographie",
+            "Drame",
+            "Animaux",
+            "Série TV",
+            "Historique",
+            "Horreur",
+            "Fantastique",
+            "Spectacle",
+            "Comédie musicale",
+            "Guerre",
+            "Documentaire",
+            "Programme musical",
+            "Comédie romantique",
+            "Nature",
+            "Kung Fu",
+            "Emotion",
+            "Japanimation",
+            "Erotique",
+            "Société et débats",
+            "Autres séries",
+            "Culture Gay et Lesbienne",
+            "Concert",
+            "Hard Rock / Métal",
+            "Série Anime / OAV",
+            "Amour & Romance",
+            "Science et découvertes",
+            "Variété française",
+            "Péplum",
+            "Humour",
+            "Gore",
+            "Voyages",
+            "Ambiance & Relaxation",
+            "Muet",
+            "Mini-series / Feuilletons",
+            "Série d'animation enfants",
+            "Court métrage",
+            "Opéra",
+            "Musique Classique",
+            "Beaux-Arts",
+            "Conte",
+            "Sport",
+            "Culture urbaine",
+            "Rap",
+            "Variété internationale",
+            "Fan Service",
+            "Danse",
+            "Sports mécaniques",
+            "Jazz & Blues",
+            "Bollywood",
+            "Documentaire musical",
+            "Culture",
+            "Football",
+            "Sitcom",
+            "Theatre",
+            "Documentaire-fiction",
+            "Musiques du monde",
+            "Série format court",
+            "Catch",
+            "Méthode",
+            "Anime Yaoi",
+            "R&B & Soul",
+            "Santé & Bien-être",
+            "Chasse & Pêche",
+            "Cuisine, Jardinage & Déco",
+            "Kickboxing & Freefight",
+            "Jeux",
+            "Divers",
+            "Emissions TV",
+            "Série documentaire",
+            "Karaoke",
+            "Musique de films",
+            "Techno / Electro",
+            "Telenovela"
         );
 
         foreach ($names as $name) {
@@ -28,14 +107,14 @@ class LoadCategory implements FixtureInterface
             $manager->persist($genre);
         }
         
-        $names = array('DVD','Blu-Ray');
+        $names = array('DVD','Blu-Ray','Blu-Ray 3D');
         foreach($names as $name) {
             $format = new Format();
             $format->setName($name);
             $manager->persist($format);
         }
         
-        $names = array('Marvel','Super-Héros','Enfant','Christopher Nolan','James Bond','Daniel Craig');
+        $names = array('Marvel','Disney','Christopher Nolan','James Bond','Daniel Craig');
         foreach($names as $name) {
             $keyword = new Keyword();
             $keyword->setName($name);

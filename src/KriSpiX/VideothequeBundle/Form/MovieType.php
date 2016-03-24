@@ -23,15 +23,15 @@ class MovieType extends AbstractType
         $builder
             ->add('ean',            'text')
             ->add('title',          'text')
-            ->add('overview',       'text', array(
+            ->add('overview',       'textarea', array(
                 'required' => false
             ))
             ->add('movieDate',      'date', array(
                 'required' => false, 
                 'years' => range(Date('Y') - 100, date('Y'))
             ))
-            ->add('link',   'text')
-            ->add('image',          'text')
+            ->add('link',           'url')
+            ->add('image',          'url')
             ->add('format',         'entity', array(
                 'class'     => 'KriSpiXVideothequeBundle:Format',
                 'property'  => 'name'
@@ -56,42 +56,17 @@ class MovieType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SUBMIT,
             function (FormEvent $event) {
                 $data = $event->getData();
-                // [keywords] => Array ( [130] => Array ( [name] => TOTO ) [1] => Array ( [name] => Nouveau ) )
-                foreach ($data['keywords'] as $id => $keywords) {
-                    foreach ($keywords as $key => $value) {
-                        $data['keywords'][$id][$key] = ucfirst(strtolower($value));
+                if (array_key_exists('keywords', $data)) {
+                    foreach ($data['keywords'] as $id => $keywords) {
+                        foreach ($keywords as $key => $value) {
+                            $data['keywords'][$id][$key] = ucfirst(strtolower($value));
+                        }
                     }
                 }
                 $event->setData($data);
             },
             255
         );
-        
-        /*$formModifier = function (FormInterface $form, Movie $movie = null) {
-            $title = null === $movie ? '' : 'test';
-            $form->add('title','text', array('data' => $title, 'required' => false));
-        };
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($formModifier) {
-                $data = $event->getData();
-                $formModifier($event->getForm());
-            }
-        );
-
-        $builder->get('ean')->addEventListener(
-            FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) use ($formModifier) {
-                // It's important here to fetch $event->getForm()->getData(), as
-                // $event->getData() will get you the client data (that is, the ID)
-                $movie = $event->getForm()->getData();
-
-                // since we've added the listener to the child, we'll have to pass on
-                // the parent to the callback functions!
-                $formModifier($event->getForm()->getParent(), $movie);
-            }
-        );*/
     }
     
     /**

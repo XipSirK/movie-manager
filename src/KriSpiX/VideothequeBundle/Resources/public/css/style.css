@@ -3,6 +3,23 @@
   padding: 0;
 }
 
+/* FORM */
+.label-delete {
+    padding-top: 0px !important;
+}
+
+#add_keyword {
+    margin-bottom: 7px;
+}
+
+select[multiple] {
+    height: 150px !important;
+}
+
+.checkbox label {
+    color: #f5f5f5;
+}
+
 .thumbnail {
 	height: 430px;
   	border-radius: 10px;

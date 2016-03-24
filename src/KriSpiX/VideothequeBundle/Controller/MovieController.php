@@ -90,7 +90,11 @@ class MovieController extends Controller
             $dvd = $dvdfrApi->searchEan($ean);        
 
             //$movie->setMovieDate(\DateTime::createFromFormat('Y-m-d', $dvd['movieDate']));
-
+            if ($dvd['format'] == 'BRD') {
+                $dvd['format'] = 'Blu-Ray';
+            } elseif($dvd['format'] == 'BRD-3D') {
+                $dvd['format'] = 'Blu-Ray 3D';
+            }
             $json = json_encode(array(
                 'title'     => $dvd['title'],
                 'url'       => $dvd['url'],
