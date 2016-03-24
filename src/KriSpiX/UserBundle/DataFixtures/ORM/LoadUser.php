@@ -2,28 +2,34 @@
 
 namespace KriSpiX\UserBundle\DataFixtures\ORM;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use KriSpiX\UserBundle\Entity\User;
 
-class LoadUser implements FixtureInterface
+class LoadUser extends Controller implements FixtureInterface 
 {
     public function load(ObjectManager $manager)
     {
 
-        $listNames = array('demo');
+        $listNames = array('demo', 'admin');
 
         foreach ($listNames as $name) {
             $user = new User;
-
-            // Le nom d'utilisateur et le mot de passe sont identiques
+            
             $user->setUsername($name);
-            $user->setPassword($name);
-
-            // On ne se sert pas du sel pour l'instant
+            
+            $plainPassword = $name;         
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($user, $plainPassword);
+            $user->setPassword($encoded);
             $user->setSalt('');
-            // On définit uniquement le role ROLE_USER qui est le role de base
-            $user->setRoles(array('ROLE_USER'));
+
+            if($name == 'admin') {
+                $user->setRoles(array('ROLE_ADMIN'));
+            } elseif($name == 'demo') {
+                $user->setRoles(array('ROLE_USER'));
+            }
 
             $manager->persist($user);
         }

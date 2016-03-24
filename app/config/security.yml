@@ -3,8 +3,8 @@
 
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-        KriSpiX\UserBundle\Entity\User: plaintext
+        Symfony\Component\Security\Core\User\User: sha512
+        KriSpiX\UserBundle\Entity\User: sha512
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER

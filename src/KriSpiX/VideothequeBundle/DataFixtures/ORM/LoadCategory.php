@@ -48,7 +48,7 @@ class LoadCategory implements FixtureInterface
         $movie->setTitle('Spectre');
         $movie->setOverview('Un message cryptique venu tout droit de son passé pousse Bond à enquêter...');
         $movie->setMovieDate(new \DateTime('2015-11-11'));
-        $movie->setAllocineLink('http://www.allocine.fr/film/fichefilm_gen_cfilm=206892.html');
+        $movie->setLink('http://www.allocine.fr/film/fichefilm_gen_cfilm=206892.html');
         $movie->setImage('http://www.dvdfr.com/images/dvd/covers/200x280/984d1472ba657352d3defe7eb7b75a48/160224/3d-007_spectre_br.0.jpg');
         $movie->setEan('3700259838542');
         $movie->setLend(false);
