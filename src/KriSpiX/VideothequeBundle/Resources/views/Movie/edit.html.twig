@@ -1,0 +1,21 @@
+{% extends "KriSpiXVideothequeBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ movie.title }} - Modifier - {{ parent() }}
+{% endblock %}
+
+{% block krispixvideotheque_body %}
+
+    <h1>Modifier {{ movie.title }}</h1>
+    <hr/>
+
+    {{ include("KriSpiXVideothequeBundle:Movie:form.html.twig") }}
+
+    <p>
+        <a href="{{ path('krispix_videotheque_view', {'slug': movie.slug}) }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          Retour au film
+        </a>
+    </p>
+
+{% endblock %}

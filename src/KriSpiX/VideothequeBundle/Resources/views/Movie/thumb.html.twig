@@ -1,0 +1,22 @@
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+        {% if movie.see %}
+            <div class="corner-ribbon top-left sticky green shadow">Visionné</div>
+        {% endif %}
+        <a href="{{ path('krispix_videotheque_view', {'slug': movie.slug}) }}">
+            <img width="200" src="{{ movie.image }}" alt="{{ movie.title }}"/>
+        </a>
+        <hr>
+        <div class="caption">
+            <h3><a href="{{ path('krispix_videotheque_view', {'slug': movie.slug}) }}">{{ movie.title | truncate(40) }}</a> <small>({{ movie.format.name }})</small>
+            </h3>
+            <div class="bottom-keywords">                
+                {% if not movie.keywords.empty %}
+                    {% for keyword in movie.keywords %}
+                        <a href="{{ path('krispix_videotheque_keyword', {'id': keyword.id}) }}" class="btn btn-info">{{ keyword.name }}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

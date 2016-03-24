@@ -1,0 +1,13 @@
+{% extends "KriSpiXVideothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un movie - {{ parent() }}
+{% endblock %}
+
+{% block krispixvideotheque_body %}
+
+  <h2>Ajouter un movie</h2>
+
+  {{ include("KriSpiXVideothequeBundle:Movie:form.html.twig") }}
+
+{% endblock %}

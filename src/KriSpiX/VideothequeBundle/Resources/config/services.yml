@@ -1,0 +1,29 @@
+services:
+    kri_spi_x_videotheque.antispam:
+        class: KriSpiX\VideothequeBundle\Antispam\KrispixAntispam
+        arguments: [@mailer, 2]
+        calls:
+            - [ setLocale, [ %locale% ] ]
+        tags:
+            - { name: twig.extension }
+    kri_spi_x_videotheque.validator.antiflood:
+        class: KriSpiX\VideothequeBundle\Validator\AntifloodValidator
+        arguments: [@request_stack, @doctrine.orm.entity_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: krispix_videotheque_antiflood }
+    kri_spi_x_videotheque.beta.html:
+        class: KriSpiX\VideothequeBundle\Beta\BetaHTML
+    kri_spi_x_videotheque.beta.listener:
+        class: KriSpiX\VideothequeBundle\Beta\BetaListener
+        arguments: [@kri_spi_x_videotheque.beta.html, "2016-04-01"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: processBeta }
+    kri_spi_x_videotheque.dvdfr.api:
+        class: KriSpiX\VideothequeBundle\Dvdfr\Api
+        arguments: ['http://www.dvdfr.com/api/search.php?gencode=', 'http://www.dvdfr.com/api/dvd.php?id=']
+    kri_spi_x_videotheque.keyword.listener:
+        class: KriSpiX\VideothequeBundle\Validator\UniqueKeyword
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
+    

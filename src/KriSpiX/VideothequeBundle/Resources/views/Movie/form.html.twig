@@ -1,0 +1,119 @@
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+<div class="well">
+  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_errors(form) }}
+    <div class="form-group">
+        {{ form_label(form.ean, "EAN", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.ean) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.ean, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.title, "Titre", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.title) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.overview, "Synopsis", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.overview) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.overview, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>    
+    <div class="form-group">
+        {{ form_label(form.link, "Lien", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.link) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.link, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>    
+    <div class="form-group">
+        {{ form_label(form.image, "Lien Image", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.image) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.format, "Format", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.format) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.format, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.movieDate, "Date Film", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.movieDate) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.movieDate, {'attr': {'class': ''}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.purchaseDate, "Date achat", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.purchaseDate) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.purchaseDate, {'attr': {'class': ''}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label col-sm-2 control-label" for="krispix_videothequebundle_movie_lend">
+            Prêté
+        </label>
+        {{ form_errors(form.lend) }}
+        <div class="col-sm-1">
+            {{ form_widget(form.lend, {'attr': {'class': 'checkbox'}}) }}
+        </div>
+    </div>    
+    <div class="form-group">
+        <label class="col-sm-3 control-label col-sm-2 control-label" for="krispix_videothequebundle_movie_see">
+            Visionné
+        </label>
+        {{ form_errors(form.see) }}
+        <div class="col-sm-1">
+            {{ form_widget(form.see, {'attr': {'class': 'checkbox'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.keywords, "Mots clés", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.keywords) }}
+        <div class="col-sm-6">
+            <div id="krispix_videothequebundle_movie_keywords" data-prototype="{{ form_widget(form.keywords.vars.prototype)|e }}">
+                {% for keyword in form.keywords %}
+                    {{ form_row(keyword.name) }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.genres, "Genres", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.genres) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.genres, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label col-sm-2 control-label" for="krispix_videothequebundle_movie_edit_save">
+            &nbsp;
+        </label>
+        {{ form_widget(form.save, {'attr': {'class': 'col-sm-3 btn btn-primary'}}) }}
+    </div> 
+    {% do form.keywords.setRendered %}
+    <div class="form-group">
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+</div>
+
+
+{# On charge la bibliothèque jQuery. Ici, je la prends depuis le CDN google
+   mais si vous l'avez en local, changez simplement l'adresse. #}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+
+</script>

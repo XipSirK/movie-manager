@@ -1,0 +1,84 @@
+{% extends "KriSpiXVideothequeBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ movie.title }} - {{ parent() }}
+{% endblock %}
+
+{% block krispixvideotheque_body %}
+
+    <div id="movie-left-column" class="col-md-3">
+        {% if movie.image is not null %}
+        <div style="margin-bottom: 20px;">
+            <img height="280" src="{{ movie.image }}" alt="{{ movie.title }}">
+        </div>
+        {% endif %}
+        <div>
+            <a href="{{ path('krispix_videotheque_edit', {'id': movie.id}) }}" class="btn btn-default">
+              <i class="glyphicon glyphicon-edit"></i>
+              Modifier
+            </a>
+            <a href="{{ path('krispix_videotheque_delete', {'id': movie.id}) }}" class="btn btn-danger">
+              <i class="glyphicon glyphicon-trash"></i>
+              Supprimer
+            </a>
+        </div>
+    </div>
+    <div id="movie-right-column" class="col-md-9">
+        <h2>{{ movie.title }} <small>({{ movie.format.name }})</small></h2>
+        <p class="text-justify">{{ movie.overview }}</p>
+        <div class="table-responsive">
+            <table class="table table-condensed" style="">
+                <tr>
+                    <th class="col-md-3" scope="row">Date achat</th>
+                    <td>{{ movie.purchaseDate|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3" scope="row">Date Film</th>
+                    <td>{{ movie.movieDate|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3" scope="row">EAN</th>
+                    <td>{{ movie.ean }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3" scope="row">Plus d'info</th>
+                    <td><a href="{{ movie.link }}">Consulter</a></td>
+                </tr>
+                <tr>
+                    <th class="col-md-3" scope="row">Visionné</th>
+                    <td>
+                        {% if movie.see %}
+                            <i class="glyphicon glyphicon-ok"></i>
+                        {% else %}
+                            <i class="glyphicon glyphicon-remove"></i>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="col-md-3" scope="row">Prêté</th>
+                    <td>
+                        {% if movie.lend %}
+                            <i class="glyphicon glyphicon-ok"></i>
+                        {% else %}
+                            <i class="glyphicon glyphicon-remove"></i>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>        
+        </div>
+        {% if not movie.genres.empty %}
+            <div style="margin-bottom: 10px;">
+            {% for genre in movie.genres %}
+                <a href="{{ path('krispix_videotheque_genre', {'id': genre.id}) }}" class="btn btn-info">{{ genre.name }}</a>
+            {% endfor %}
+            </div>
+        {% endif %}
+        {% if not movie.keywords.empty %}
+            <div>
+            {% for keyword in movie.keywords %}
+                <a href="{{ path('krispix_videotheque_keyword', {'id': keyword.id}) }}" class="btn btn-info">{{ keyword.name }}</a>
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "KriSpiXVideothequeBundle::layout.html.twig" %}
+
+{% block title %}
+    Recherche - {{ parent() }}
+{% endblock %}
+
+{% block krispixvideotheque_body %}
+
+    <h1>Résultats pour "{{ searchTerm }}"</h1>
+    <hr/>
+    <div class="row">
+      {% for movie in listMovies %}    
+        {{ include("KriSpiXVideothequeBundle:Movie:thumb.html.twig") }}
+      {% else %}
+        <p>Aucun film ne correspond à votre recherche</p>
+      {% endfor %}
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}Vidéothèque{% endblock %}</title>
+
+  {% block stylesheets %}
+    {# On charge le CSS de bootstrap depuis le site directement #}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  {% endblock %}
+  
+  {% stylesheets '@KriSpiXVideothequeBundle/Resources/public/css/*' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
+
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Menu</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ path('krispix_videotheque_home') }}">Vidéothèque</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="{{ path('krispix_videotheque_new') }}">Récent</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genre <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                {{ render(controller("KriSpiXVideothequeBundle:Movie:menuGenre", {'limit': 3})) }}
+              </ul>
+            </li>
+          </ul>
+          <form method="post" action="{{ path('krispix_videotheque_search') }}" class="navbar-form navbar-left" style="width: 40%" role="search">
+            <div class="form-group" style="width:100%">
+                <div class="input-group" style="width: 100%">
+                  <input type="text" name="search" class="form-control" placeholder="Rechercher">
+                    <span class="input-group-btn">
+                      <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            {% if not app.user %}
+                <a href="{{ path('login') }}"><button type="button" class="btn btn-default navbar-btn">Se connecter</button></a>
+            {% elseif app.user %}
+                <div class="navbar-btn">
+                    <a class="btn btn-primary" href="{{ path('krispix_videotheque_add') }}">+ Ajouter un film</a>
+                </div>
+            {% endif %}
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+    <div class="row">
+      <div id="content" class="col-md-12">
+        {% block body %}
+        {% endblock %}
+      </div>
+    </div>
+    <hr>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">2016</p>
+      </div>
+    </footer>
+  </div>
+
+  {% block javascripts %}
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  {% endblock %}
+  {% javascripts '@KriSpiXVideothequeBundle/Resources/public/js/*' %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
+</body>
+</html>

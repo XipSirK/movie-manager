@@ -1,0 +1,7 @@
+{% for genre in listGenres %}
+    <li>
+      <a href="{{ path('krispix_videotheque_genre', {'id': genre.id}) }}">
+        {{ genre.name }}
+      </a>
+    </li>
+{% endfor %}

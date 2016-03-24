@@ -1,0 +1,21 @@
+{% extends "KriSpiXVideothequeBundle::layout.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block krispixvideotheque_body %}
+
+    <h1>Accueil</h1>
+    <hr/>
+    <div class="row">
+      {% for movie in listMovies %}    
+        {{ include("KriSpiXVideothequeBundle:Movie:thumb.html.twig") }}
+      {% else %}
+        <p>Pas (encore !) de films</p>
+      {% endfor %}
+    </div>
+    
+    {{ include("KriSpiXVideothequeBundle:Movie:pagination.html.twig") }}
+
+{% endblock %}

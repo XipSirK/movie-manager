@@ -1,0 +1,19 @@
+{% extends "KriSpiXVideothequeBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ keyword.name }} - {{ parent() }}
+{% endblock %}
+
+{% block krispixvideotheque_body %}
+
+    <h1>{{ keyword.name }}</h1>
+    <hr/>
+    <div class="row">
+        {% for movie in listMovies %}    
+            {{ include("KriSpiXVideothequeBundle:Movie:thumb.html.twig") }}
+        {% else %}
+            <p>Pas (encore !) de films {{ keyword.name }}</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
