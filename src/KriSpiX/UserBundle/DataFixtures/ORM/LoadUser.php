@@ -11,7 +11,7 @@ class LoadUser implements FixtureInterface
     public function load(ObjectManager $manager)
     {
 
-        $listNames = array('anthony', 'admin');
+        $listNames = array('demo');
 
         foreach ($listNames as $name) {
             $user = new User;
@@ -23,11 +23,7 @@ class LoadUser implements FixtureInterface
             // On ne se sert pas du sel pour l'instant
             $user->setSalt('');
             // On définit uniquement le role ROLE_USER qui est le role de base
-            if($name == 'anthony') {
-                $user->setRoles(array('ROLE_ADMIN'));
-            } elseif($name == 'admin') {
-                $user->setRoles(array('ROLE_SUPER_ADMIN'));
-            }
+            $user->setRoles(array('ROLE_USER'));
 
             $manager->persist($user);
         }
