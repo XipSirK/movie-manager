@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new KriSpiX\VideothequeBundle\KriSpiXVideothequeBundle(),
             new KriSpiX\UserBundle\KriSpiXUserBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
@@ -26,7 +27,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
-            $bundles[] = new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle();
+            //$bundles[] = new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle();
             $bundles[] = new CoreSphere\ConsoleBundle\CoreSphereConsoleBundle();
         }
 

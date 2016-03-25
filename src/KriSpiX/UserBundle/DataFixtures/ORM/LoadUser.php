@@ -19,7 +19,11 @@ class LoadUser extends Controller implements FixtureInterface
             
             $user->setUsername($name);
             
-            $plainPassword = $name;         
+            if($name == 'admin') {
+                $plainPassword = $name;
+            } else {
+                $plainPassword = $name;   
+            }
             $encoder = $this->container->get('security.password_encoder');
             $encoded = $encoder->encodePassword($user, $plainPassword);
             $user->setPassword($encoded);
