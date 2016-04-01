@@ -4,12 +4,6 @@
 }
 
 /* LIST / GRID */
-
-.sorter {
-  display: inline-block;
-  float: right;
-}
-
 .item.list-group-item
 {
     float: none;

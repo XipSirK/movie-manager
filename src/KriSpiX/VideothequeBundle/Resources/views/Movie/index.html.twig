@@ -6,10 +6,10 @@
 
 {% block krispixvideotheque_body %}
 
-    <h1>Accueil</h1>
-    <hr/>
-    <div class="row">
-      {% for movie in listMovies %}    
+    <h1>Accueil {{ include("KriSpiXVideothequeBundle:Movie:viewMode.html.twig") }}</h1>
+    <hr/>    
+    <div id="movies" class="row list-group">
+      {% for movie in listMovies %}
         {{ include("KriSpiXVideothequeBundle:Movie:thumb.html.twig") }}
       {% else %}
         <p>Pas (encore !) de films</p>

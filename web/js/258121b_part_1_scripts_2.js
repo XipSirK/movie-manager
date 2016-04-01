@@ -1,38 +1,22 @@
 $(document).ready(function() {
 
-    if (Cookies.get('view-mode') == 'list') {
-      listView();
-    } else {
-      gridView();
-    }
-
-    $('#list').click(function(e){
-      e.preventDefault();
-      listView();
+    $('#list').click(function(event){
+      event.preventDefault();
+      $('#movies .item').addClass('list-group-item');
+      $('#movies .thumbnail').addClass('thumbnail-list');
+      $('#movies hr').hide();
+      $('#movies .overview').show();
+      $('#filter-view').val('list');
     });
-    $('#grid').click(function(e){
-      e.preventDefault();
-      gridView();
-    });
-
-    function gridView() {      
+    $('#grid').click(function(event){
+      event.preventDefault();
       $('#movies .item').removeClass('list-group-item');
       $('#movies .item').addClass('grid-group-item');
       $('#movies .thumbnail').removeClass('thumbnail-list');
       $('#movies hr').show();
       $('#movies .overview').hide();
       $('#filter-view').val('grid');
-      Cookies.set('view-mode', 'grid');
-    }
-
-    function listView() {      
-      $('#movies .item').addClass('list-group-item');
-      $('#movies .thumbnail').addClass('thumbnail-list');
-      $('#movies hr').hide();
-      $('#movies .overview').show();
-      $('#filter-view').val('list');
-      Cookies.set('view-mode', 'list');
-    }
+    });
 
     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
     var $container = $('div#krispix_videothequebundle_movie_keywords');
