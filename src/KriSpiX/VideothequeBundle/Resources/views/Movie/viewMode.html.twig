@@ -1,5 +1,16 @@
-<small>({{ listMovies|length }} films)</small>
+<small>
+	({{ listMovies.getTotalItemCount }} film{% if listMovies.getTotalItemCount > 1 %}s{% endif %})
+</small>
 <div class="sorter">
+	<div class="btn-group dropdown">
+	  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-value="Trier par : " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Trier par :
+	    <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu">
+	    <li{% if listMovies.isSorted('m.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(listMovies, 'Titre', 'm.title') }}</li>
+	    <li{% if listMovies.isSorted('m.purchaseDate') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(listMovies, 'Date achat', ['m.purchaseDate']) }}</li>
+	  </ul>
+	</div>
     <div class="btn-group">
       <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
       </span> Liste</a> 

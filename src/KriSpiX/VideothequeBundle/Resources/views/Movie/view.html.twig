@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block krispixvideotheque_body %}
-
+    
+    <h1></h1>
     <div id="movie-left-column" class="col-md-3">
         {% if movie.image is not null %}
         <div style="margin-bottom: 20px;">
@@ -13,7 +14,7 @@
         </div>
         {% endif %}
         <div>
-            <a href="{{ path('krispix_videotheque_edit', {'id': movie.id}) }}" class="btn btn-default">
+            <a href="{{ path('krispix_videotheque_edit', {'id': movie.id}) }}" class="btn btn-primary">
               <i class="glyphicon glyphicon-edit"></i>
               Modifier
             </a>
@@ -69,14 +70,14 @@
         {% if not movie.genres.empty %}
             <div style="margin-bottom: 10px;">
             {% for genre in movie.genres %}
-                <a href="{{ path('krispix_videotheque_genre', {'id': genre.id}) }}" class="btn btn-info">{{ genre.name }}</a>
+                <a href="{{ path('krispix_videotheque_genre', {'id': genre.id}) }}" class="btn btn-perso">{{ genre.name }}</a>
             {% endfor %}
             </div>
         {% endif %}
         {% if not movie.keywords.empty %}
             <div>
             {% for keyword in movie.keywords %}
-                <a href="{{ path('krispix_videotheque_keyword', {'id': keyword.id}) }}" class="btn btn-info">{{ keyword.name }}</a>
+                <a href="{{ path('krispix_videotheque_keyword', {'id': keyword.id}) }}" class="btn btn-perso">{{ keyword.name }}</a>
             {% endfor %}
             </div>
         {% endif %}

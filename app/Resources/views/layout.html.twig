@@ -5,23 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>{% block title %}Vidéothèque{% endblock %}</title>
-
   {% block stylesheets %}
-    {# On charge le CSS de bootstrap depuis le site directement #}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   {% endblock %}
   
   {% stylesheets '@KriSpiXVideothequeBundle/Resources/public/css/*' filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
   {% endstylesheets %}
-
 </head>
 
 <body>
-  <div class="container">
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
+
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Menu</span>
@@ -31,19 +27,17 @@
           </button>
           <a class="navbar-brand" href="{{ path('krispix_videotheque_home') }}">Vidéothèque</a>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li><a href="{{ path('krispix_videotheque_new') }}">Récent</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genre <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                {{ render(controller("KriSpiXVideothequeBundle:Movie:menuGenre", {'limit': 3})) }}
+                {{ render(controller("KriSpiXVideothequeBundle:Movie:menuGenre")) }}
               </ul>
             </li>
           </ul>
-          <form method="post" action="{{ path('krispix_videotheque_search') }}" class="navbar-form navbar-left" style="width: 40%" role="search">
+          <form method="GET" action="{{ path('krispix_videotheque_search_redirect') }}" class="navbar-form navbar-left" role="search">
             <div class="form-group" style="width:100%">
                 <div class="input-group" style="width: 100%">
                   <input type="text" name="search" class="form-control" placeholder="Rechercher">
@@ -65,29 +59,38 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-    
-    <div class="row">
-      <div id="content" class="col-md-12">
-        {% block body %}
-        {% endblock %}
+    <div class="container">
+      <div class="row">
+        <div id="content" class="col-md-12">
+          {% block body %}
+          {% endblock %}
+        </div>
       </div>
     </div>
-    <hr>
+
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">2016</p>
+        <div class="row">
+          <div class="col-sm-6">
+            © 2016 <a target="_blank" href="http://www.anthony-bouvart.fr" title="Movie Manager">Anthony Bouvart</a>.
+          </div>
+          <div class="col-sm-6">
+            <ul class="pull-right">
+              <li><a href="{{ path('krispix_videotheque_home') }}">Accueil</a></li>
+              <li><a href="{{ path('krispix_videotheque_new') }}">Récent</a></li>
+              <li><a href="http://www.anthony-bouvart.fr/#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </footer>
-  </div>
 
   {% block javascripts %}
-    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   {% endblock %}
   {% javascripts '@KriSpiXVideothequeBundle/Resources/public/js/*' %}
     <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
-
 </body>
 </html>

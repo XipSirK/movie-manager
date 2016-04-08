@@ -1,4 +1,22 @@
 $(document).ready(function() {
+    /* SORT */
+    sortOrder = $(".sorter > .dropdown > .dropdown-menu > .sorted > a").attr('class');
+    icon = false;
+    if(sortOrder == 'asc') {
+      icon = '<span class="glyphicon glyphicon-sort-by-attributes"></span> ';
+    } else if(sortOrder == 'desc') {
+      icon = '<span class="glyphicon glyphicon-sort-by-attributes-alt"></span> ';
+    }
+    if (icon) {
+      title = $('.sorter > .dropdown > .dropdown-toggle').data('value');
+      $('.sorter > .dropdown > .dropdown-toggle').html(
+        icon +
+        title + 
+        $(".sorter > .dropdown > .dropdown-menu > .sorted").text() +
+        ' <span class="caret"></span>'
+      );
+    }
+    /*END SORT*/
 
     if (Cookies.get('view-mode') == 'list') {
       listView();
@@ -22,6 +40,7 @@ $(document).ready(function() {
       $('#movies hr').show();
       $('#movies .overview').hide();
       $('#filter-view').val('grid');
+      $('#movies .thumbnail .cover').width(200);
       Cookies.set('view-mode', 'grid');
     }
 
@@ -31,6 +50,7 @@ $(document).ready(function() {
       $('#movies hr').hide();
       $('#movies .overview').show();
       $('#filter-view').val('list');
+      $('#movies .thumbnail .cover').width(150);
       Cookies.set('view-mode', 'list');
     }
 

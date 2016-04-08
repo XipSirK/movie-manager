@@ -4,9 +4,15 @@ krispix_videotheque_home:
     requirements:
         page: \d+
 
+krispix_videotheque_search_redirect:
+    path:       /movie/redirectsearch
+    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:searchRedirect }
+
 krispix_videotheque_search:
-    path:       /movie/search
-    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:search }
+    path:       /movie/search/{searchTerm}/{page}
+    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:search, searchTerm: '', page: 1 }
+    requirements:
+        page: \d+
 
 krispix_videotheque_add:
     path:       /movie/add
@@ -25,19 +31,23 @@ krispix_videotheque_delete:
         id: \d+
         
 krispix_videotheque_new:
-    path:       /movie/new
-    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:new }
+    path:       /movie/new/{page}
+    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:new, page: 1 }
+    requirements:
+        page: \d+
     
 krispix_videotheque_genre:
-    path:       /movie/genre/{id}
-    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:viewByGenre }
+    path:       /movie/genre/{id}/{page}
+    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:viewByGenre, page: 1 }
     requirements:
+        page: \d+
         id: \d+
         
 krispix_videotheque_keyword:
-    path:       /movie/keyword/{id}
-    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:viewByKeyword }
+    path:       /movie/keyword/{id}/{page}
+    defaults:   { _controller: KriSpiXVideothequeBundle:Movie:viewByKeyword, page: 1 }
     requirements:
+        page: \d+
         id: \d+
 
 krispix_videotheque_view:

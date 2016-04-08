@@ -7,7 +7,7 @@
 {% block krispixvideotheque_body %}
 
     <h1>Nouveautés {{ include("KriSpiXVideothequeBundle:Movie:viewMode.html.twig") }}</h1>
-    <hr/>
+    <hr/>    
     <div id="movies" class="row list-group">
       {% for movie in listMovies %}    
         {{ include("KriSpiXVideothequeBundle:Movie:thumb.html.twig") }}
@@ -15,5 +15,7 @@
         <p>Pas de films récents</p>
       {% endfor %}
     </div>
-    
+
+    {{ include("KriSpiXVideothequeBundle:Movie:pagination.html.twig") }}
+      
 {% endblock %}

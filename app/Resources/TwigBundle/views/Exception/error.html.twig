@@ -1,0 +1,16 @@
+{% extends "KriSpiXVideothequeBundle::layout.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block krispixvideotheque_body %}
+
+    <h1>Page non trouvée <small><font face="Tahoma" color="red">Erreur 404</font></small></h1>
+    <div class="hero-unit center">
+      <p>La page demandée n'existe pas, merci de retourner sur la page d'accueil</p>
+      <a href="{{ path('krispix_videotheque_home') }}" class="btn btn-large btn-info">
+      <i class="icon-home icon-white"></i> Revenir à la page d'accueil</a>
+    </div>
+
+{% endblock %}

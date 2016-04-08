@@ -18,39 +18,26 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class MovieController extends Controller
 {
     public function indexAction($page)
-    {
-        if ($page < 1) {
-            throw new NotFoundHttpException("La page ".$page." n'existe pas !");
-        }
-        $nbPerPage = Movie::NB_PER_PAGE;
-        
-        $listMovies = $this->getDoctrine()
+    {        
+        $listMoviesQuery = $this->getDoctrine()
             ->getManager()
             ->getRepository('KriSpiXVideothequeBundle:Movie')
-            ->getMovies($page, $nbPerPage);
+            ->getMovies();
         
-        $nbPages = ceil(count($listMovies)/$nbPerPage);
-        
-        if ($page > $nbPages) {
-            //throw new NotFoundHttpException("La page ".$page." n'existe pas !");
-        }
-        
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $listMoviesQuery,
+            $this->get('request')->query->get('page', $page),
+            Movie::NB_PER_PAGE
+        );
+
         return $this->render('KriSpiXVideothequeBundle:Movie:index.html.twig', array(
-            'listMovies' => $listMovies,
-            'nbPages'    => $nbPages,
-            'page'       => $page,
+            'listMovies' => $pagination
         ));
     }
     
     public function viewAction(Movie $movie)
-    {
-        /*$repo = $this->getDoctrine()->getManager()->getRepository('KriSpiXVideothequeBundle:Movie');
-        $movie = $repo->find($id);
-        
-        if (null === $movie) {
-            throw new NotFoundHttpException("Le movie d'id ".$id." n'existe pas !");
-        }*/
-        
+    {        
         return $this->render('KriSpiXVideothequeBundle:Movie:view.html.twig', array(
             'movie' => $movie
         ));
@@ -89,7 +76,6 @@ class MovieController extends Controller
             $dvdfrApi = $this->container->get('kri_spi_x_videotheque.dvdfr.api');
             $dvd = $dvdfrApi->searchEan($ean);        
 
-            //$movie->setMovieDate(\DateTime::createFromFormat('Y-m-d', $dvd['movieDate']));
             if ($dvd['format'] == 'BRD') {
                 $dvd['format'] = 'Blu-Ray';
             } elseif($dvd['format'] == 'BRD-3D') {
@@ -139,19 +125,11 @@ class MovieController extends Controller
     */
     public function editAction(Movie $movie, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        /*$movie = $em->getRepository('KriSpiXVideothequeBundle:Movie')->find($id);
-        
-        if(null === $movie) {
-            throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas !");
-        }*/
-        
+        $em = $this->getDoctrine()->getManager();        
         $form = $this->createForm(new MovieEditType(), $movie);
         
         if ($form->handleRequest($request)->isValid()) {
             $keywords = $movie->getKeywords();
-            //print_r($keywords);
-            //die;
             foreach($keywords as $keyword){
                 $results = $em->getRepository('KriSpiXVideothequeBundle:Keyword')->findBy(array('name' => $keyword->getName()), array('id' => 'ASC'));
                 if (count($results) > 1){
@@ -175,13 +153,7 @@ class MovieController extends Controller
     */
     public function deleteAction(Movie $movie, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        /*$movie = $em->getRepository('KriSpiXVideothequeBundle:Movie')->find($id);
-        
-        if(null === $movie) {
-            throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas !");
-        }*/
-        
+        $em = $this->getDoctrine()->getManager();        
         $form = $this->createFormBuilder()->getForm();        
         
         if ($form->handleRequest($request)->isValid()) {
@@ -198,7 +170,7 @@ class MovieController extends Controller
         ));
     }
     
-    public function menuGenreAction($limit = 3)
+    public function menuGenreAction()
     {        
         $listMovies = $this->getDoctrine()
             ->getManager()
@@ -222,16 +194,33 @@ class MovieController extends Controller
         ));
     }
 
-    public function searchAction(Request $request)
+    public function searchRedirectAction(Request $request)
     {
-        if ($request->isMethod('POST')) {
-            $searchTerm = $request->request->get('search');
+        $searchTerm = $request->query->get('search');
+        if (isset($searchTerm) AND $searchTerm != '') {
+            return $this->redirect($this->generateUrl('krispix_videotheque_search', array(
+                'searchTerm' => $searchTerm,
+                'page' => 1
+            )));
+        } else {
+            return $this->redirect($this->generateUrl('krispix_videotheque_home'));
+        }
+    }
+    public function searchAction(Request $request, $searchTerm, $page)
+    {     
+        if (isset($searchTerm) AND $searchTerm != '') {   
             $em = $this->getDoctrine()->getManager();
             $listMovies = $em->getRepository("KriSpiXVideothequeBundle:Movie")
                 ->getMoviesSearch($searchTerm);
 
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $listMovies,
+                $this->get('request')->query->get('page', $page),
+                Movie::NB_PER_PAGE
+            );
             return $this->render('KriSpiXVideothequeBundle:Movie:search.html.twig', array(
-                'listMovies' => $listMovies,
+                'listMovies' => $pagination,
                 'searchTerm' => $searchTerm,
             ));
         } else {
@@ -239,47 +228,63 @@ class MovieController extends Controller
         }
     }
     
-    public function newAction($limit = 4)
+    public function newAction(Request $request, $page)
     {
-        $listMovies = $this->getDoctrine()
+        $listMoviesQuery = $this->getDoctrine()
             ->getManager()
             ->getRepository('KriSpiXVideothequeBundle:Movie')
-            ->findBy(
-                array(),                 // Pas de critère
-                array('purchaseDate' => 'desc'), // On trie par date décroissante
-                $limit,                  // On sélectionne $limit annonces
-                0                        // À partir du premier
+            ->getNewMovies();
+      
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $listMoviesQuery,
+            $this->get('request')->query->get('page', $page),
+            Movie::NB_PER_PAGE
         );
         
         return $this->render('KriSpiXVideothequeBundle:Movie:new.html.twig', array(
-            'listMovies' => $listMovies
+            'listMovies' => $pagination
         ));
     }
     
-    public function viewByGenreAction(Genre $genre)
+    public function viewByGenreAction(Genre $genre, $page)
     {
         
-        $listMovies = $this->getDoctrine()
+        $listMoviesQuery = $this->getDoctrine()
             ->getManager()
             ->getRepository('KriSpiXVideothequeBundle:Movie')
             ->getMoviesWithGenre($genre);
         
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $listMoviesQuery,
+            $this->get('request')->query->get('page', $page),
+            Movie::NB_PER_PAGE
+        );
+        
         return $this->render('KriSpiXVideothequeBundle:Movie:genre.html.twig', array(
-            'listMovies' => $listMovies,
+            'listMovies' => $pagination,
             'genre'      => $genre,
         ));
     }
     
-    public function viewByKeywordAction(Keyword $keyword)
+    public function viewByKeywordAction(Keyword $keyword, $page)
     {
         
-        $listMovies = $this->getDoctrine()
+        $listMoviesQuery = $this->getDoctrine()
             ->getManager()
             ->getRepository('KriSpiXVideothequeBundle:Movie')
             ->getMoviesWithKeyword($keyword);
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $listMoviesQuery,
+            $this->get('request')->query->get('page', $page),
+            Movie::NB_PER_PAGE
+        );
+
         return $this->render('KriSpiXVideothequeBundle:Movie:keyword.html.twig', array(
-            'listMovies' => $listMovies,
+            'listMovies' => $pagination,
             'keyword'    => $keyword,
         ));
     }

@@ -1,10 +1,10 @@
 <div class="item col-sm-6 col-md-4">
     <div class="thumbnail">
         {% if movie.see %}
-            <div class="corner-ribbon top-left sticky green shadow">Visionné</div>
+            <div class="corner-ribbon top-left sticky purple shadow">Visionné</div>
         {% endif %}
         <a href="{{ path('krispix_videotheque_view', {'slug': movie.slug}) }}">
-            <img width="200" src="{{ movie.image }}" alt="{{ movie.title }}"/>
+            <img class="cover" src="{{ movie.image }}" alt="{{ movie.title }}"/>
         </a>
         <hr>
         <div class="caption">
@@ -16,7 +16,7 @@
             <div class="bottom-keywords">                
                 {% if not movie.keywords.empty %}
                     {% for keyword in movie.keywords %}
-                        <a href="{{ path('krispix_videotheque_keyword', {'id': keyword.id}) }}" class="btn btn-info">{{ keyword.name }}</a>
+                        <a href="{{ path('krispix_videotheque_keyword', {'id': keyword.id}) }}" class="btn btn-perso">{{ keyword.name }}</a>
                     {% endfor %}
                 {% endif %}
             </div>

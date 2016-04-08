@@ -26,7 +26,7 @@ class MovieRepository extends EntityRepository
         $qb->join('m.genres', 'g')->addSelect('g')
            ->where($qb->expr()->in('g.id', $genre->getId()));
 
-        return $qb->getQuery()->getResult();
+        return $qb;
     }
         
     public function getMoviesWithKeyword($keyword)
@@ -35,10 +35,10 @@ class MovieRepository extends EntityRepository
         $qb->join('m.keywords', 'k')->addSelect('k')
            ->where($qb->expr()->in('k.id', $keyword->getId()));
 
-        return $qb->getQuery()->getResult();
+        return $qb;
     }
 
-    public function getMovies($page, $nbPerPage)
+    public function getMovies()
     {
         $qb = $this->createQueryBuilder('m')
             ->leftJoin('m.genres', 'g')
@@ -47,21 +47,26 @@ class MovieRepository extends EntityRepository
             ->addSelect('k')
             ->leftJoin('m.format', 'f')
             ->addSelect('f')
-            ->orderBy('m.purchaseDate', 'DESC')
-            ->getQuery();
-            
-        $qb ->setFirstResult(($page-1) * $nbPerPage)
-            ->setMaxResults($nbPerPage);
-            
-        return new Paginator($qb, true);
+            ->orderBy('m.purchaseDate', 'DESC');
+
+       return $qb;
     }
 
     public function getMoviesSearch($searchTerm)
     {
         $qb = $this->createQueryBuilder('m')
             ->where('m.title LIKE :title')
-            ->setParameter('title', '%'.$searchTerm.'%')
-            ->getQuery()->getResult();
+            ->setParameter('title', '%'.$searchTerm.'%');
+
+        return $qb;
+    }
+
+    public function getNewMovies()
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->where('m.purchaseDate >= :date')
+            ->setParameter('date', (new \DateTime())->modify('-30 days'))
+            ->orderBy('m.purchaseDate', 'DESC');
 
         return $qb;
     }

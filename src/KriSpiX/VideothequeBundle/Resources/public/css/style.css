@@ -1,6 +1,151 @@
-*{
+* {
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: #c52d2f;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #c52d2f;
+}
+
+/* Perso button */
+.btn-perso { 
+  color: #ffffff; 
+  background-color: #2E2E2E; 
+  border-color: #000000; 
+} 
+ 
+.btn-perso:hover, 
+.btn-perso:focus, 
+.btn-perso:active, 
+.btn-perso.active, 
+.open .dropdown-toggle.btn-perso { 
+  color: #ffffff; 
+  background-color: #C52D2F; 
+  border-color: #000000; 
+} 
+ 
+.btn-perso:active, 
+.btn-perso.active, 
+.open .dropdown-toggle.btn-perso { 
+  background-image: none; 
+} 
+ 
+.btn-perso.disabled, 
+.btn-perso[disabled], 
+fieldset[disabled] .btn-perso, 
+.btn-perso.disabled:hover, 
+.btn-perso[disabled]:hover, 
+fieldset[disabled] .btn-perso:hover, 
+.btn-perso.disabled:focus, 
+.btn-perso[disabled]:focus, 
+fieldset[disabled] .btn-perso:focus, 
+.btn-perso.disabled:active, 
+.btn-perso[disabled]:active, 
+fieldset[disabled] .btn-perso:active, 
+.btn-perso.disabled.active, 
+.btn-perso[disabled].active, 
+fieldset[disabled] .btn-perso.active { 
+  background-color: #2E2E2E; 
+  border-color: #000000; 
+} 
+ 
+.btn-perso .badge { 
+  color: #2E2E2E; 
+  background-color: #ffffff; 
+}
+
+/* Navbar */
+.navbar-inverse {
+  border: none;
+}
+
+.navbar {
+  border-radius: 0;
+  margin-bottom: 0;
+  background: #151515;
+  color: #fff !important;
+}
+
+.navbar-inverse .navbar-nav > li > a, 
+.navbar-inverse .navbar-brand {
+  color: #fff;
+  -webkit-transition:color 300ms,background-color 300ms;
+  -moz-transition:color 300ms,background-color 300ms;
+  -o-transition:color 300ms,background-color 300ms;
+  transition:color 300ms,background-color 300ms;
+}
+
+.navbar-inverse .navbar-nav > li > a:focus, 
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: #fff;
+  background-color: #c52d2f;
+  -webkit-transition:color 300ms,background-color 300ms;
+  -moz-transition:color 300ms,background-color 300ms;
+  -o-transition:color 300ms,background-color 300ms;
+  transition:color 300ms,background-color 300ms;
+}
+
+.navbar-inverse .navbar-nav > .open > a, 
+.navbar-inverse .navbar-nav > .open > a:focus, 
+.navbar-inverse .navbar-nav > .open > a:hover {
+  color: #fff;
+  background-color: #c52d2f;
+  -webkit-transition:color 300ms,background-color 300ms;
+  -moz-transition:color 300ms,background-color 300ms;
+  -o-transition:color 300ms,background-color 300ms;
+  transition:color 300ms,background-color 300ms;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 90px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 90px;
+  background-color: #2e2e2e;
+  color: #fff;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: left;
+  border-top: 5px solid #c52d2f;
+}
+
+.footer a {
+  color: #fff;
+  -webkit-transition:color 300ms,background-color 300ms;
+  -moz-transition:color 300ms,background-color 300ms;
+  -o-transition:color 300ms,background-color 300ms;
+  transition:color 300ms,background-color 300ms;
+}
+
+.footer a:hover, a:focus {
+  color:#d43133;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer ul > li {
+  display: inline-block;
+  margin-left: 15px;
 }
 
 /* LIST / GRID */
